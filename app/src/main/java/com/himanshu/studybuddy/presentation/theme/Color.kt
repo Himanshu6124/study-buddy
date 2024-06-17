@@ -1,4 +1,4 @@
-package com.himanshu.studybuddy.ui.theme
+package com.himanshu.studybuddy.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
@@ -73,3 +73,14 @@ val surfaceContainerLowDark = Color(0xFF191C20)
 val surfaceContainerDark = Color(0xFF1D2024)
 val surfaceContainerHighDark = Color(0xFF282A2F)
 val surfaceContainerHighestDark = Color(0xFF33353A)
+
+val Red = Color(0xFFD53A2F)
+val Blue = Color(0xFF2965C9)
+val Green = Color(0xFF1E9651)
+val Orange = Color(0xFFFF9800)
+
+val gradient1 = listOf(Color(0xFFad5389), Color(0xFF3c1053))
+val gradient2 = listOf(Color(0xFF3A6073), Color(0xFF16222A))
+val gradient3 = listOf(Color(0xFFF857A6), Color(0xFFFF5858))
+val gradient4 = listOf(Color(0xFF00d2ff), Color(0xFF3a7bd5))
+val gradient5 = listOf(Color(0xFF99f2c8), Color(0xFF1f4037))
