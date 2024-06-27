@@ -25,8 +25,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +41,7 @@ import com.himanshu.studybuddy.R
 import com.himanshu.studybuddy.domain.model.Session
 import com.himanshu.studybuddy.domain.model.Subject
 import com.himanshu.studybuddy.domain.model.Task
+import com.himanshu.studybuddy.presentation.AddSubjectDialog
 import com.himanshu.studybuddy.presentation.components.CountCardSection
 import com.himanshu.studybuddy.presentation.components.SubjectCard
 import com.himanshu.studybuddy.presentation.components.studySessionsList
@@ -52,16 +59,33 @@ fun DashboardScreen() {
     )
 
     val tasks = listOf(
-        Task("Homework","Complete Homework",0L,2,"Maths",false,11,100),
-        Task("Learn","Complete Assignment",0L,2,"English",true,11,100),
-        Task("Assignment","Complete Homework",0L,1,"History",false,11,100)
+        Task("Homework", "Complete Homework", 0L, 2, "Maths", false, 11, 100),
+        Task("Learn", "Complete Assignment", 0L, 2, "English", true, 11, 100),
+        Task("Assignment", "Complete Homework", 0L, 1, "History", false, 11, 100)
     )
     val sessions = listOf(
-        Session(1,"Maths",42,40,5),
-        Session(1,"Physics",24,150,3),
-        Session(1,"Chemistry",12,100,2),
-        Session(1,"Maths",22,100,1)
+        Session(1, "Maths", 42, 40, 5),
+        Session(1, "Physics", 24, 150, 3),
+        Session(1, "Chemistry", 12, 100, 2),
+        Session(1, "Maths", 22, 100, 1)
     )
+    val selectedColor = remember { mutableStateOf(Subject.subjectCardColors[0]) }
+    val selectedSubject = remember { mutableStateOf("") }
+    val selectedGoalHours = remember { mutableStateOf("") }
+    var isAddSubjectDialogOpen by rememberSaveable { mutableStateOf(false) }
+
+    AddSubjectDialog(
+        isDialogBoxOpen = isAddSubjectDialogOpen,
+        selectedSubject = selectedSubject.value,
+        selectedGoalHours = selectedGoalHours.value,
+        onSubjectNameChange = { selectedSubject.value = it },
+        onGoalHoursChange = { selectedGoalHours.value = it },
+        selectedColor = selectedColor.value,
+        onColorChange = { selectedColor.value = it },
+        onDismissButton = { isAddSubjectDialogOpen = false },
+        onConfirmButton = { isAddSubjectDialogOpen = false }
+    )
+
 
     Scaffold(topBar = { TopBar() }) {
         LazyColumn(
@@ -78,8 +102,11 @@ fun DashboardScreen() {
                     studiedHours = "4",
                     goalHours = "10"
                 )
-                SubjectCardSection(modifier = Modifier, subjectList = subjects)
-                Button(modifier= Modifier
+                SubjectCardSection(
+                    modifier = Modifier,
+                    subjectList = subjects,
+                    onAddItemClicked = { isAddSubjectDialogOpen = true })
+                Button(modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 50.dp, vertical = 10.dp),
                     onClick = { /*TODO*/ }) {
@@ -99,7 +126,7 @@ fun DashboardScreen() {
                 emptyListText = "You don't have any recent study sessions.\n " +
                         "Start a study session to begin recording your progress.",
                 sessions = sessions,
-                onDeleteIconClick = {  }
+                onDeleteIconClick = { }
             )
         }
     }
@@ -109,7 +136,8 @@ fun DashboardScreen() {
 private fun SubjectCardSection(
     modifier: Modifier,
     subjectList: List<Subject>,
-    emptyListText: String = "You don't have any subject \n Click + button to add new subject"
+    emptyListText: String = "You don't have any subject \n Click + button to add new subject",
+    onAddItemClicked: () -> Unit
 ) {
     Column(modifier = modifier) {
         Row(
@@ -123,7 +151,7 @@ private fun SubjectCardSection(
             Icon(
                 modifier = Modifier
                     .size(30.dp)
-                    .clickable { /* TODO */ }, imageVector = Icons.Default.Add,
+                    .clickable { onAddItemClicked() }, imageVector = Icons.Default.Add,
                 contentDescription = "Add subject"
             )
         }
@@ -149,12 +177,13 @@ private fun SubjectCardSection(
             contentPadding = PaddingValues(start = 12.dp, end = 12.dp),
             content = {
                 items(subjectList) { subject ->
-                SubjectCard(
-                    subjectName = subject.name,
-                    gradientColors = subject.colors,
-                    onClick = {}
-                )
-            }}
+                    SubjectCard(
+                        subjectName = subject.name,
+                        gradientColors = subject.colors,
+                        onClick = {}
+                    )
+                }
+            }
         )
     }
 }
