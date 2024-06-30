@@ -1,6 +1,5 @@
 package com.himanshu.studybuddy.presentation.dashboard
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -32,8 +30,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,8 +37,9 @@ import com.himanshu.studybuddy.R
 import com.himanshu.studybuddy.domain.model.Session
 import com.himanshu.studybuddy.domain.model.Subject
 import com.himanshu.studybuddy.domain.model.Task
-import com.himanshu.studybuddy.presentation.AddSubjectDialog
+import com.himanshu.studybuddy.presentation.components.AddSubjectDialog
 import com.himanshu.studybuddy.presentation.components.CountCardSection
+import com.himanshu.studybuddy.presentation.components.DeleteDialog
 import com.himanshu.studybuddy.presentation.components.SubjectCard
 import com.himanshu.studybuddy.presentation.components.studySessionsList
 import com.himanshu.studybuddy.presentation.components.tasksList
@@ -73,6 +70,7 @@ fun DashboardScreen() {
     val selectedSubject = remember { mutableStateOf("") }
     val selectedGoalHours = remember { mutableStateOf("") }
     var isAddSubjectDialogOpen by rememberSaveable { mutableStateOf(false) }
+    var isDeleteSubjectDialogOpen by rememberSaveable { mutableStateOf(false) }
 
     AddSubjectDialog(
         isDialogBoxOpen = isAddSubjectDialogOpen,
@@ -84,6 +82,13 @@ fun DashboardScreen() {
         onColorChange = { selectedColor.value = it },
         onDismissButton = { isAddSubjectDialogOpen = false },
         onConfirmButton = { isAddSubjectDialogOpen = false }
+    )
+    DeleteDialog(
+        title = "Delete Session ?",
+        isDialogBoxOpen = isDeleteSubjectDialogOpen ,
+        bodyText = "Are you sure to delete this session ?",
+        onDismissButton = { isDeleteSubjectDialogOpen = false },
+        onConfirmButton = {isDeleteSubjectDialogOpen = false}
     )
 
 
@@ -126,7 +131,7 @@ fun DashboardScreen() {
                 emptyListText = "You don't have any recent study sessions.\n " +
                         "Start a study session to begin recording your progress.",
                 sessions = sessions,
-                onDeleteIconClick = { }
+                onDeleteIconClick = { isDeleteSubjectDialogOpen = true }
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.himanshu.studybuddy.presentation
+package com.himanshu.studybuddy.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
