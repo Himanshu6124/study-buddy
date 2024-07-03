@@ -15,18 +15,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.himanshu.studybuddy.domain.model.Session
 import com.himanshu.studybuddy.domain.model.Subject
 import com.himanshu.studybuddy.domain.model.Task
-import com.himanshu.studybuddy.presentation.dashboard.DashboardScreen
-import com.himanshu.studybuddy.presentation.session.SessionScreen
-import com.himanshu.studybuddy.presentation.subject.SubjectScreen
-import com.himanshu.studybuddy.presentation.task.TaskScreen
+import com.himanshu.studybuddy.presentation.NavGraphs
 import com.himanshu.studybuddy.presentation.theme.StudyBuddyTheme
+import com.ramcosta.composedestinations.DestinationsNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            StudyBuddyTheme( content = { SessionScreen() } )
+            StudyBuddyTheme {
+                DestinationsNavHost(navGraph = NavGraphs.root)
+            }
         }
     }
 }
@@ -36,11 +36,11 @@ val tasks = listOf(
     Task("Assignment", "Complete Homework", 0L, 1, "History", false, 11, 100)
 )
 val subjects = listOf(
-    Subject("English", 5f, Subject.subjectCardColors[0]),
-    Subject("Maths", 6f, Subject.subjectCardColors[1]),
-    Subject("Physics", 3f, Subject.subjectCardColors[2]),
-    Subject("S.St", 10f, Subject.subjectCardColors[3]),
-    Subject("Cs", 4f, Subject.subjectCardColors[4])
+    Subject("English", 5f, Subject.subjectCardColors[0],1),
+    Subject("Maths", 6f, Subject.subjectCardColors[1],2),
+    Subject("Physics", 3f, Subject.subjectCardColors[2],3),
+    Subject("S.St", 10f, Subject.subjectCardColors[3],4),
+    Subject("Cs", 4f, Subject.subjectCardColors[4],5)
 )
 val sessions = listOf(
     Session(1, "Maths", 42, 40, 5),

@@ -40,11 +40,18 @@ import com.himanshu.studybuddy.presentation.components.SubjectListBottomSheet
 import com.himanshu.studybuddy.presentation.components.studySessionsList
 import com.himanshu.studybuddy.sessions
 import com.himanshu.studybuddy.subjects
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
+@Destination
+@Composable
+fun SessionScreenRoute(navigator: DestinationsNavigator){
+    SessionScreen(onBackButtonClick = {navigator.navigateUp()})
+}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SessionScreen() {
+private fun SessionScreen(onBackButtonClick: () -> Unit) {
 
     val scope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
@@ -78,7 +85,7 @@ fun SessionScreen() {
 
     Scaffold(
         topBar = {
-            SessionScreenTopBar(onBackButtonClick = {})
+            SessionScreenTopBar(onBackButtonClick = onBackButtonClick)
         }
     ) { paddingValues ->
         LazyColumn(

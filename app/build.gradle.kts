@@ -54,6 +54,11 @@ android {
 
 dependencies {
 
+    //compose destination
+    val destinationVersion = "1.9.52"
+    implementation("io.github.raamcosta.compose-destinations:core:$destinationVersion")
+    ksp("io.github.raamcosta.compose-destinations:ksp:$destinationVersion")
+
     //Dagger-Hilt
     implementation("com.google.dagger:hilt-android:2.48")
     ksp("com.google.dagger:hilt-android-compiler:2.48")

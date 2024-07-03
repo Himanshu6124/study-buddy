@@ -50,12 +50,42 @@ import com.himanshu.studybuddy.presentation.components.CountCard
 import com.himanshu.studybuddy.presentation.components.DeleteDialog
 import com.himanshu.studybuddy.presentation.components.studySessionsList
 import com.himanshu.studybuddy.presentation.components.tasksList
+import com.himanshu.studybuddy.presentation.destinations.TaskScreenRouteDestination
+import com.himanshu.studybuddy.presentation.task.TaskScreenNavArgs
 import com.himanshu.studybuddy.sessions
 import com.himanshu.studybuddy.tasks
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+
+data class SubjectScreenNavArgs(
+    val subjectId : Int
+)
+
+@Destination(navArgsDelegate = SubjectScreenNavArgs::class)
+@Composable
+fun SubjectScreenRoute(
+    navigator: DestinationsNavigator
+) {
+    SubjectScreen(
+        onBackButtonClick = { navigator.navigateUp() },
+        onAddTaskButtonClick = {
+            val navArg = TaskScreenNavArgs(taskId = null, subjectId = -1)
+            navigator.navigate(TaskScreenRouteDestination(navArgs = navArg))
+        },
+        onTaskCardClick = { taskId ->
+            val navArg = TaskScreenNavArgs(taskId = taskId, subjectId = null)
+            navigator.navigate(TaskScreenRouteDestination(navArgs = navArg))
+        }
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SubjectScreen() {
+private fun SubjectScreen(
+    onBackButtonClick: () -> Unit,
+    onAddTaskButtonClick: () -> Unit,
+    onTaskCardClick: (Int?) -> Unit
+) {
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val listState = rememberLazyListState()
@@ -73,19 +103,19 @@ fun SubjectScreen() {
         isDialogBoxOpen = isEditSubjectDialogOpen,
         selectedSubject = subjectName,
         selectedGoalHours = goalHours,
-        onSubjectNameChange = { subjectName= it },
+        onSubjectNameChange = { subjectName = it },
         onGoalHoursChange = { goalHours = it },
         selectedColor = selectedColor,
         onColorChange = { selectedColor = it },
         onDismissButton = { isEditSubjectDialogOpen = false },
         onConfirmButton = { isEditSubjectDialogOpen = false }
     )
-    DeleteDialog(isDialogBoxOpen = isDeleteSubjectDialogOpen ,
+    DeleteDialog(isDialogBoxOpen = isDeleteSubjectDialogOpen,
         title = "Delete Subject?",
         bodyText = "Are you sure, you want to delete this subject? All related " +
                 "tasks and study sessions will be permanently removed. This action can not be undone",
         onDismissButton = { isDeleteSubjectDialogOpen = false },
-        onConfirmButton = {isDeleteSubjectDialogOpen = false}
+        onConfirmButton = { isDeleteSubjectDialogOpen = false }
     )
 
     Scaffold(
@@ -93,15 +123,15 @@ fun SubjectScreen() {
         topBar = {
             SubjectScreenTopBar(
                 title = "English",
-                onBackButtonClick = { },
-                onDeleteButtonClick = { isDeleteSubjectDialogOpen = true},
-                onEditButtonClick = { isEditSubjectDialogOpen = true},
+                onBackButtonClick =  onBackButtonClick,
+                onDeleteButtonClick = { isDeleteSubjectDialogOpen = true },
+                onEditButtonClick = { isEditSubjectDialogOpen = true },
                 scrollBehavior = scrollBehavior
             )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = onAddTaskButtonClick,
                 icon = { Icon(imageVector = Icons.Default.Add, contentDescription = "Add") },
                 text = { Text(text = "Add Task") },
                 expanded = isFABExpanded
@@ -130,7 +160,7 @@ fun SubjectScreen() {
                         "Click the + button to add new task.",
                 tasks = tasks,
                 onCheckBoxClick = {},
-                onTaskCardClick = {}
+                onTaskCardClick = onTaskCardClick
             )
             item {
                 Spacer(modifier = Modifier.height(20.dp))
@@ -141,7 +171,7 @@ fun SubjectScreen() {
                         "Click the check box on completion of task.",
                 tasks = tasks,
                 onCheckBoxClick = {},
-                onTaskCardClick = {}
+                onTaskCardClick = onTaskCardClick
             )
             item {
                 Spacer(modifier = Modifier.height(20.dp))
