@@ -6,6 +6,7 @@
 
 ## Screenshots
 
-<img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr3.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr4.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr5.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr6.jpg" alt="Error" style="width:200px;"/>
-<img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr7.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr8.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr9.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/Shopify/blob/master/screenshots/scr10.jpg" alt="Error" style="width:200px;"/>
+<img src="https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr1.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr2.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr3.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr4.jpg" alt="Error" style="width:200px;"/>
+<img src="https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr5.jpg" alt="Error" style="width:200px;"/> <img src="https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr6.jpg" alt="Error" style="width:200px;"/>  <img src="https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr7.jpg" alt="Error" style="width:200px;"/>
 
+https://github.com/Himanshu6124/study-buddy/blob/dev/screenshots/scr1.jpg
