@@ -30,6 +30,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -76,11 +78,11 @@ fun DashboardScreenRoute(navigator : DestinationsNavigator){
     ) {
 
     val subjects = listOf(
-        Subject("English", 5f, Subject.subjectCardColors[0],1),
-        Subject("Maths", 6f, Subject.subjectCardColors[1],2),
-        Subject("Physics", 3f, Subject.subjectCardColors[2],3),
-        Subject("S.St", 10f, Subject.subjectCardColors[3],4),
-        Subject("Cs", 4f, Subject.subjectCardColors[4],5)
+        Subject("English", 5f, Subject.subjectCardColors[0].map { it.toArgb() },1),
+        Subject("Maths", 6f, Subject.subjectCardColors[1].map { it.toArgb() },2),
+        Subject("Physics", 3f, Subject.subjectCardColors[2].map { it.toArgb() },3),
+        Subject("S.St", 10f, Subject.subjectCardColors[3].map { it.toArgb() },4),
+        Subject("Cs", 4f, Subject.subjectCardColors[4].map { it.toArgb() },5)
     )
 
     val tasks = listOf(
@@ -217,7 +219,7 @@ private fun SubjectCardSection(
                 items(subjectList) { subject ->
                     SubjectCard(
                         subjectName = subject.name,
-                        gradientColors = subject.colors,
+                        gradientColors = subject.colors.map { Color(it) },
                         onClick = {onSubjectCardClick(subject.subjectId)}
                     )
                 }

@@ -18,7 +18,9 @@ import com.himanshu.studybuddy.domain.model.Task
 import com.himanshu.studybuddy.presentation.NavGraphs
 import com.himanshu.studybuddy.presentation.theme.StudyBuddyTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
