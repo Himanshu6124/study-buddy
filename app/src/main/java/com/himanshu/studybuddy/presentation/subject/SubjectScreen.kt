@@ -26,10 +26,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -54,9 +57,12 @@ import com.himanshu.studybuddy.presentation.components.studySessionsList
 import com.himanshu.studybuddy.presentation.components.tasksList
 import com.himanshu.studybuddy.presentation.destinations.TaskScreenRouteDestination
 import com.himanshu.studybuddy.presentation.task.TaskScreenNavArgs
+import com.himanshu.studybuddy.util.SnackbarEvent
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collectLatest
 
 data class SubjectScreenNavArgs(
     val subjectId : Int
@@ -72,6 +78,7 @@ fun SubjectScreenRoute(
     SubjectScreen(
         state = state ,
         onEvent = {viewModel.onEvent(it)},
+        snackbarEvent = viewModel.snackbarEventFlow,
         onBackButtonClick = { navigator.navigateUp() },
         onAddTaskButtonClick = {
             val navArg = TaskScreenNavArgs(taskId = null, subjectId = -1)
@@ -89,6 +96,7 @@ fun SubjectScreenRoute(
 private fun SubjectScreen(
     state : SubjectState,
     onEvent: (SubjectEvent) -> Unit,
+    snackbarEvent: SharedFlow<SnackbarEvent>,
     onBackButtonClick: () -> Unit,
     onAddTaskButtonClick: () -> Unit,
     onTaskCardClick: (Int?) -> Unit
@@ -101,6 +109,27 @@ private fun SubjectScreen(
     var isEditSubjectDialogOpen by rememberSaveable { mutableStateOf(false) }
     var isDeleteSubjectDialogOpen by rememberSaveable { mutableStateOf(false) }
     var isDeleteSessionDialogOpen by rememberSaveable { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(key1 = true) {
+        snackbarEvent.collectLatest { event->
+            when(event) {
+                SnackbarEvent.NavigateUp -> {
+                    onBackButtonClick()
+                }
+                is SnackbarEvent.ShowSnackbar -> {
+                    snackbarHostState.showSnackbar(
+                        message = event.message,
+                        duration = event.duration
+                    )
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = state.goalStudyHours, key2 = state.studiedHours) {
+        onEvent(SubjectEvent.UpdateProgress)
+    }
 
 
     AddSubjectDialog(
@@ -117,7 +146,8 @@ private fun SubjectScreen(
             isEditSubjectDialogOpen = false
         }
     )
-    DeleteDialog(isDialogBoxOpen = isDeleteSubjectDialogOpen,
+    DeleteDialog(
+        isDialogBoxOpen = isDeleteSubjectDialogOpen,
         title = "Delete Subject?",
         bodyText = "Are you sure, you want to delete this subject? All related " +
                 "tasks and study sessions will be permanently removed. This action can not be undone",
@@ -128,6 +158,7 @@ private fun SubjectScreen(
     )
 
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SubjectScreenTopBar(

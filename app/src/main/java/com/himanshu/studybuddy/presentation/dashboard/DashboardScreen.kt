@@ -111,7 +111,7 @@ fun DashboardScreenRoute(navigator : DestinationsNavigator){
     LaunchedEffect(key1 = true) {
         snackbarEvent.collectLatest { event->
             when(event) {
-                SnackbarEvent.NavigateUp -> TODO()
+                SnackbarEvent.NavigateUp -> {}
                 is SnackbarEvent.ShowSnackbar -> {
                     snackbarHostState.showSnackbar(
                         message = event.message,

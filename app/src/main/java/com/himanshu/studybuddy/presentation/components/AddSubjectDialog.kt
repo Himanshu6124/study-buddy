@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -25,12 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.himanshu.studybuddy.domain.model.Subject
 
 @Composable
 fun AddSubjectDialog(
-    isDialogBoxOpen : Boolean,
+    isDialogBoxOpen: Boolean,
     selectedSubject: String,
     selectedGoalHours: String,
     onSubjectNameChange: (String) -> Unit,
@@ -41,7 +43,7 @@ fun AddSubjectDialog(
     onConfirmButton: () -> Unit
 ) {
 
-    if(!isDialogBoxOpen)  return
+    if (!isDialogBoxOpen) return
 
     var subjectNameError by rememberSaveable { mutableStateOf("") }
     var goalHoursError by rememberSaveable { mutableStateOf("") }
@@ -99,16 +101,19 @@ fun AddSubjectDialog(
                 OutlinedTextField(
                     modifier = Modifier.padding(vertical = 5.dp),
                     value = selectedSubject, onValueChange = onSubjectNameChange,
-                    supportingText = { Text(text = subjectNameError)},
+                    supportingText = { Text(text = subjectNameError) },
                     isError = subjectNameError != "",
+                    singleLine = true
                 )
 
                 OutlinedTextField(
                     value = selectedGoalHours,
                     onValueChange = onGoalHoursChange,
                     modifier = Modifier.padding(vertical = 5.dp),
-                    supportingText = { Text(text = goalHoursError)},
+                    supportingText = { Text(text = goalHoursError) },
                     isError = goalHoursError != "",
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    singleLine = true
                 )
             }
         }
