@@ -13,5 +13,5 @@ data class Task(
     val isComplete: Boolean,
     val taskSubjectId: Int,
     @PrimaryKey(autoGenerate = true)
-    val taskId: Int
+    val taskId: Int? = null
 )

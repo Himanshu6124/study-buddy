@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.himanshu.studybuddy.domain.model.Subject
+import com.himanshu.studybuddy.domain.model.Task
 import com.himanshu.studybuddy.domain.repository.SessionRepository
 import com.himanshu.studybuddy.domain.repository.SubjectRepository
 import com.himanshu.studybuddy.domain.repository.TaskRepository
@@ -65,9 +66,12 @@ class DashboardViewModel @Inject constructor(
 
     fun onEvent(event: DashboardEvent) {
         when (event) {
-            DashboardEvent.DeleteSession -> TODO()
-            is DashboardEvent.OnDeleteSessionButtonClick -> TODO()
-            is DashboardEvent.OnGoalStudyHoursChange -> {
+            DashboardEvent.DeleteSession -> {}
+            is DashboardEvent.OnDeleteSessionButtonClick -> {
+                _state.update {
+                    it.copy(session = event.session)
+                }
+            }            is DashboardEvent.OnGoalStudyHoursChange -> {
                 _state.update {
                     it.copy(goalStudyHours = event.hours)
                 }
@@ -85,9 +89,29 @@ class DashboardViewModel @Inject constructor(
                 }
             }
 
-            is DashboardEvent.OnTaskIsCompleteChange -> TODO()
+            is DashboardEvent.OnTaskIsCompleteChange -> updateTask(event.task)
             DashboardEvent.SaveSubject -> {
                 saveSubject()
+            }
+        }
+    }
+
+    private fun updateTask(task: Task) {
+        viewModelScope.launch {
+            try {
+                taskRepository.upsertTask(
+                    task = task.copy(isComplete = !task.isComplete)
+                )
+                _snackbarEventFlow.emit(
+                    SnackbarEvent.ShowSnackbar(message = "Saved in completed tasks.")
+                )
+            } catch (e: Exception) {
+                _snackbarEventFlow.emit(
+                    SnackbarEvent.ShowSnackbar(
+                        "Couldn't update task. ${e.message}",
+                        SnackbarDuration.Long
+                    )
+                )
             }
         }
     }

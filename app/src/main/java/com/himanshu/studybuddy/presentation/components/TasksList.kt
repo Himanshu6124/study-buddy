@@ -31,6 +31,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.himanshu.studybuddy.domain.model.Task
 import com.himanshu.studybuddy.util.Priority
+import com.himanshu.studybuddy.util.changeMillisToDateString
+import com.himanshu.studybuddy.util.toHours
 
 fun LazyListScope.tasksList(
     sectionTitle: String,
@@ -113,7 +115,7 @@ private fun TaskCard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "${task.dueDate}",
+                    text = task.dueDate.changeMillisToDateString(),
                     style = MaterialTheme.typography.bodySmall
                 )
             }

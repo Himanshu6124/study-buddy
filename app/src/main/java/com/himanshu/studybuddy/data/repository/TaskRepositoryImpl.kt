@@ -10,15 +10,15 @@ import javax.inject.Inject
 
 class TaskRepositoryImpl @Inject constructor(val taskDao: TaskDao): TaskRepository {
     override suspend fun upsertTask(task: Task) {
-        TODO("Not yet implemented")
+        taskDao.upsertTask(task)
     }
 
     override suspend fun deleteTask(taskId: Int) {
-        TODO("Not yet implemented")
+        taskDao.deleteTask(taskId)
     }
 
     override suspend fun getTaskById(taskId: Int): Task? {
-        TODO("Not yet implemented")
+        return taskDao.getTaskById(taskId)
     }
 
     override fun getUpcomingTasksForSubject(subjectInt: Int): Flow<List<Task>> {

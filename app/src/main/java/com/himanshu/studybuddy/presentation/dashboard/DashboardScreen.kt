@@ -58,12 +58,14 @@ import com.himanshu.studybuddy.presentation.subject.SubjectScreenNavArgs
 import com.himanshu.studybuddy.presentation.task.TaskScreenNavArgs
 import com.himanshu.studybuddy.util.SnackbarEvent
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-@Destination(start = true)
+@RootNavGraph(start = true)
+@Destination
 @Composable
 fun DashboardScreenRoute(navigator : DestinationsNavigator){
 
