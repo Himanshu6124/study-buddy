@@ -4,13 +4,13 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
-import javax.security.auth.Subject
+import com.himanshu.studybuddy.domain.model.Subject
 
 @Dao
 interface SubjectDao {
 
     @Upsert
-    suspend fun upsertSubject(subject: com.himanshu.studybuddy.domain.model.Subject)
+    suspend fun upsertSubject(subject: Subject)
 
     @Query("SELECT COUNT(*) FROM SUBJECT")
     fun getTotalSubjectCount() :Flow<Int>
