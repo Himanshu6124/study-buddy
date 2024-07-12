@@ -22,22 +22,15 @@
   - [Safe Args](https://developer.android.com/guide/navigation/use-graph/safe-args) : The recommended way to navigate between destinations
   - [Splash Screen API](https://developer.android.com/develop/ui/views/launch/splash-screen) : Splash Screen is usually the first screen visible to the user when the application is launched.
   - [Swipe Refresh Layout](https://developer.android.com/develop/ui/views/touch-and-input/swipe/add-swipe-interface) : The swipe-to-refresh user interface pattern is implemented entirely within the SwipeRefreshLayout widget, which detects the vertical swipe, displays a distinctive progress bar, and triggers callback methods in the app
-  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) : Stores UI-related data that isn't destroyed on UI changes. 
+  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) : Stores UI-related data that isn't destroyed on UI changes.
+  - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) : Provides a simplified way of implementing DI in Android app.
+  - [Coroutines](https://developer.android.com/kotlin/coroutines) : A concurrency design pattern that you can use on Android to simplify code that executes asynchronously
   
 - [Material Components for Android](https://github.com/material-components/material-components-android) : Modular and customizable Material Design UI components for Android.
 - [Figma](https://figma.com/) : Figma is a vector graphics editor and prototyping tool which is primarily web-based.
 
 <br />
 
-
-# Tech Used
-• Kotlin <br />
-• Jetpack Compose<br /> 
-• Room  <br />
-• MVVM Architecture<br />
-• Dagger Hilt <br />
-• Glide library <br />
-• Coroutines<br />
 
 ## Screenshots
 
