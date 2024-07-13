@@ -10,5 +10,5 @@ data class Session(
     val date: Long,
     val duration: Long,
     @PrimaryKey(autoGenerate = true)
-    val sessionId: Int
+    val sessionId: Int? = null
 )

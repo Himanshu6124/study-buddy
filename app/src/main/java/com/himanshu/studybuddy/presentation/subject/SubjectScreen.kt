@@ -47,15 +47,12 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.destinations.TaskScreenRouteDestination
-import com.himanshu.studybuddy.domain.model.Session
-import com.himanshu.studybuddy.domain.model.Subject
-import com.himanshu.studybuddy.domain.model.Task
 import com.himanshu.studybuddy.presentation.components.AddSubjectDialog
 import com.himanshu.studybuddy.presentation.components.CountCard
 import com.himanshu.studybuddy.presentation.components.DeleteDialog
 import com.himanshu.studybuddy.presentation.components.studySessionsList
 import com.himanshu.studybuddy.presentation.components.tasksList
+import com.himanshu.studybuddy.presentation.destinations.TaskScreenRouteDestination
 import com.himanshu.studybuddy.presentation.task.TaskScreenNavArgs
 import com.himanshu.studybuddy.util.SnackbarEvent
 import com.ramcosta.composedestinations.annotation.Destination

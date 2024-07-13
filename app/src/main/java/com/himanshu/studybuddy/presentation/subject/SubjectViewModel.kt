@@ -11,9 +11,9 @@ import com.himanshu.studybuddy.domain.model.Task
 import com.himanshu.studybuddy.domain.repository.SessionRepository
 import com.himanshu.studybuddy.domain.repository.SubjectRepository
 import com.himanshu.studybuddy.domain.repository.TaskRepository
+import com.himanshu.studybuddy.presentation.navArgs
 import com.himanshu.studybuddy.util.SnackbarEvent
 import com.himanshu.studybuddy.util.toHours
-import com.navArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -87,14 +87,18 @@ class SubjectViewModel @Inject constructor(
                 }
             }
 
-            is SubjectEvent.OnDeleteSessionButtonClick -> {}
+            is SubjectEvent.OnDeleteSessionButtonClick -> {
+                _state.update {
+                    it.copy(session = event.session)
+                }
+            }
             is SubjectEvent.OnTaskIsCompleteChange -> {
                 updateTask(event.task)
             }
 
             SubjectEvent.UpdateSubject -> updateSubject()
             SubjectEvent.DeleteSubject -> deleteSubject()
-            SubjectEvent.DeleteSession -> {}
+            SubjectEvent.DeleteSession -> deleteSession()
 
             SubjectEvent.UpdateProgress -> {
                 val goalStudyHours = state.value.goalStudyHours.toFloatOrNull() ?: 1f
@@ -204,5 +208,23 @@ class SubjectViewModel @Inject constructor(
     }
 
 
-
+    private fun deleteSession() {
+        viewModelScope.launch {
+            try {
+                state.value.session?.let {
+                    sessionRepository.deleteSession(it)
+                    _snackbarEventFlow.emit(
+                        SnackbarEvent.ShowSnackbar(message = "Session deleted successfully")
+                    )
+                }
+            } catch (e: Exception) {
+                _snackbarEventFlow.emit(
+                    SnackbarEvent.ShowSnackbar(
+                        message = "Couldn't delete session. ${e.message}",
+                        duration = SnackbarDuration.Long
+                    )
+                )
+            }
+        }
+    }
 }

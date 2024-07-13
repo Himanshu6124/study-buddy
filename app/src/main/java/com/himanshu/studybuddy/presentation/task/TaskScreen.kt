@@ -52,9 +52,6 @@ import com.himanshu.studybuddy.presentation.components.DeleteDialog
 import com.himanshu.studybuddy.presentation.components.SubjectListBottomSheet
 import com.himanshu.studybuddy.presentation.components.TaskCheckBox
 import com.himanshu.studybuddy.presentation.components.TaskDatePicker
-import com.himanshu.studybuddy.presentation.subject.SubjectViewModel
-import com.himanshu.studybuddy.presentation.theme.Red
-import com.himanshu.studybuddy.subjects
 import com.himanshu.studybuddy.util.Priority
 import com.himanshu.studybuddy.util.SnackbarEvent
 import com.himanshu.studybuddy.util.changeMillisToDateString
