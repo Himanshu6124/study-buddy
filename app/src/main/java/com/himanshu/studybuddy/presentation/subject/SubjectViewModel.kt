@@ -11,9 +11,9 @@ import com.himanshu.studybuddy.domain.model.Task
 import com.himanshu.studybuddy.domain.repository.SessionRepository
 import com.himanshu.studybuddy.domain.repository.SubjectRepository
 import com.himanshu.studybuddy.domain.repository.TaskRepository
-import com.himanshu.studybuddy.presentation.navArgs
 import com.himanshu.studybuddy.util.SnackbarEvent
 import com.himanshu.studybuddy.util.toHours
+import com.navArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

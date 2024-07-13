@@ -41,6 +41,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.destinations.SessionScreenRouteDestination
+import com.destinations.SubjectScreenRouteDestination
+import com.destinations.TaskScreenRouteDestination
 import com.himanshu.studybuddy.R
 import com.himanshu.studybuddy.domain.model.Session
 import com.himanshu.studybuddy.domain.model.Subject
@@ -51,9 +54,6 @@ import com.himanshu.studybuddy.presentation.components.DeleteDialog
 import com.himanshu.studybuddy.presentation.components.SubjectCard
 import com.himanshu.studybuddy.presentation.components.studySessionsList
 import com.himanshu.studybuddy.presentation.components.tasksList
-import com.himanshu.studybuddy.presentation.destinations.SessionScreenRouteDestination
-import com.himanshu.studybuddy.presentation.destinations.SubjectScreenRouteDestination
-import com.himanshu.studybuddy.presentation.destinations.TaskScreenRouteDestination
 import com.himanshu.studybuddy.presentation.subject.SubjectScreenNavArgs
 import com.himanshu.studybuddy.presentation.task.TaskScreenNavArgs
 import com.himanshu.studybuddy.util.SnackbarEvent
