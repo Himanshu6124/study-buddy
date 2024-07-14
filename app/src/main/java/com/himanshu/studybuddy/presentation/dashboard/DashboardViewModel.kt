@@ -71,7 +71,9 @@ class DashboardViewModel @Inject constructor(
                 _state.update {
                     it.copy(session = event.session)
                 }
-            }            is DashboardEvent.OnGoalStudyHoursChange -> {
+            }
+
+            is DashboardEvent.OnGoalStudyHoursChange -> {
                 _state.update {
                     it.copy(goalStudyHours = event.hours)
                 }
@@ -146,6 +148,7 @@ class DashboardViewModel @Inject constructor(
             }
         }
     }
+
     private fun deleteSession() {
         viewModelScope.launch {
             try {
