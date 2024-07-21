@@ -31,6 +31,9 @@ class TaskViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    /* when coming through subject screen(add task FAB ) taskId is null and when
+    * coming through on taping taskCard(edit task,task already exists)  taskId is not null   */
+
     private val navArgs: TaskScreenNavArgs = savedStateHandle.navArgs()
 
     private val _state = MutableStateFlow(TaskState())

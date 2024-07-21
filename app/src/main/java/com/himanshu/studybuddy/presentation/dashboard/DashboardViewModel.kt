@@ -62,6 +62,8 @@ class DashboardViewModel @Inject constructor(
     )
 
     private val _snackbarEventFlow = MutableSharedFlow<SnackbarEvent>()
+
+    /* make it read only (mutableShared flow to sharedFlow) */
     val snackbarEventFlow = _snackbarEventFlow.asSharedFlow()
 
     fun onEvent(event: DashboardEvent) {
@@ -98,6 +100,8 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
+    /* update the status of task completion using check box and remove from upcoming tasks*/
+
     private fun updateTask(task: Task) {
         viewModelScope.launch {
             try {
@@ -117,6 +121,8 @@ class DashboardViewModel @Inject constructor(
             }
         }
     }
+
+    /* add subject in dashboard screen and update from subject screen */
 
     private fun saveSubject() {
         viewModelScope.launch {
@@ -148,6 +154,8 @@ class DashboardViewModel @Inject constructor(
             }
         }
     }
+
+/*  delete recent study session */
 
     private fun deleteSession() {
         viewModelScope.launch {
